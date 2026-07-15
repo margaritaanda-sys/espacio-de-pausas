@@ -1,0 +1,18 @@
+ESPACIO DE PAUSAS · PROYECTO MAESTRO 1.0
+
+Este archivo será la única base de desarrollo a partir de ahora.
+
+CAMBIOS VISIBLES
+- Etiqueta fija “Proyecto Maestro · 1.0”.
+- Ajustes para que la presentación sea consistente en computadora y celular.
+- Botón “Buscar actualización”.
+- Corrección de almacenamiento temporal para mostrar despliegues nuevos.
+
+CÓMO PUBLICAR
+1. Abre el MISMO Worker en Cloudflare.
+2. Nuevo despliegue / Upload assets.
+3. Sube este ZIP.
+4. Comprueba que en computadora y celular aparezca la etiqueta:
+   Proyecto Maestro · 1.0
+
+Si ambos muestran esa etiqueta, ya están usando exactamente la misma versión.
