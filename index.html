@@ -148,7 +148,12 @@ p{line-height:1.62}
 .bottom-nav button{border:0;background:transparent;color:var(--muted);padding:7px 3px;font-size:.72rem}
 .bottom-nav span{display:block;font-size:1.22rem;margin-bottom:2px}
 .empty{text-align:center;padding:35px 15px;color:var(--muted)}
-
+.mi-rincon-stack{display:grid;gap:14px;margin-top:14px}
+.mi-rincon-stack .panel{padding:18px}
+.mi-rincon-stack .empty{padding:10px 0 0}
+.mi-rincon-stack .mini-card{padding-top:12px;border-top:1px solid var(--line)}
+.mi-rincon-stack .mini-card:first-child{padding-top:0;border-top:0}
+.mi-rincon-stack .mini-card + .mini-card{margin-top:6px}
 .version-badge{
   position:fixed;right:12px;bottom:78px;z-index:40;background:rgba(47,59,49,.9);
   color:white;border-radius:999px;padding:7px 11px;font-size:.68rem;letter-spacing:.04em;
@@ -234,6 +239,27 @@ p{line-height:1.62}
   <div id="favoriteList" class="cards"></div>
 </section>
 
+<section id="miRincon" class="view">
+  <button class="back" onclick="showView('home')">← Volver a mi espacio</button>
+  <div class="eyebrow" style="color:var(--sage-dark)">Mi rincón</div>
+  <h2>Tu espacio personal</h2>
+  <p>Aquí tienes lo que te acompaña: la última pausa, tus favoritos y tus reflexiones.</p>
+  <div class="mi-rincon-stack">
+    <div class="panel">
+      <div class="eyebrow" style="color:var(--sage-dark)">Última pausa</div>
+      <div id="miRinconLast"></div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="color:var(--sage-dark)">Pausas favoritas</div>
+      <div id="miRinconFavorites"></div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow" style="color:var(--sage-dark)">Reflexiones guardadas</div>
+      <div id="miRinconReflections"></div>
+    </div>
+  </div>
+</section>
+
 <section id="detail" class="view">
   <button class="back" onclick="showView('collection')">← Volver a la colección</button>
   <div id="detailCover" class="detail-cover"></div>
@@ -278,14 +304,14 @@ p{line-height:1.62}
   <h1 id="closingText"></h1>
   <p>Ojalá puedas llevar algo de esta pausa contigo.</p>
   <div id="nextSuggestion" class="panel"></div>
-  <button class="btn" onclick="showView('collection')">Volver a mi colección</button>
+  <button class="btn" onclick="showView('collection')">Volver a mi día</button>
   <button class="btn secondary" onclick="showView('home')">Volver a Espacio de Pausas</button>
 </section>
 </main>
 
 <nav class="bottom-nav">
   <button onclick="showView('home')"><span>🌿</span>Espacios</button>
-  <button onclick="openFavorites()"><span>♡</span>Favoritas</button>
+  <button onclick="openMyCorner()"><span>🧺</span>Mi rincón</button>
   <button onclick="openLastPause()"><span>↺</span>Última pausa</button>
 </nav>
 </div>
@@ -294,9 +320,12 @@ p{line-height:1.62}
 let cards=[], current=null, currentCollection='Casa', currentFilter='Todas', playing=false;
 let favorites=JSON.parse(localStorage.getItem('pause_favorites')||'[]');
 
+function escapeText(value){return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
 fetch('cards.json').then(r=>r.json()).then(data=>{
   cards=data;
   renderLastPause();
+  renderMyCorner();
   const params=new URLSearchParams(location.search);
   const direct=params.get('pause');
   if(direct && cards.some(c=>c.id===direct)) openCard(direct);
@@ -307,6 +336,7 @@ function showView(id){
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if(id==='home') renderLastPause();
+  if(id==='miRincon') renderMyCorner();
 }
 function openCollection(name){
   currentCollection=name;currentFilter='Todas';
@@ -353,6 +383,7 @@ function toggleFavorite(id){
   localStorage.setItem('pause_favorites',JSON.stringify(favorites));
   if(document.getElementById('collection').classList.contains('active')) renderCards();
   if(document.getElementById('favoritesView').classList.contains('active')) renderFavoriteList();
+  if(document.getElementById('miRincon').classList.contains('active')) renderMyCorner();
 }
 function toggleCurrentFavorite(){toggleFavorite(current.id);updateDetailFavorite()}
 function startPause(){
@@ -378,6 +409,34 @@ function finishPause(){
   showView('closing');
 }
 function openFavorites(){renderFavoriteList();showView('favoritesView')}
+function openMyCorner(){renderMyCorner();showView('miRincon')}
+function renderMyCorner(){
+  const lastId=localStorage.getItem('last_pause');
+  const lastCard=cards.find(x=>x.id===lastId);
+  const lastBox=document.getElementById('miRinconLast');
+  if(!lastCard){
+    lastBox.innerHTML='<div class="empty">Todavía no hay información guardada aquí. Abre una pausa y la encontrarás al instante.</div>';
+  } else {
+    lastBox.innerHTML=`<h3>${lastCard.icon} ${lastCard.title}</h3><p>${lastCard.quote}</p><button class="btn secondary" onclick="openCard('${lastCard.id}')">Volver a abrirla</button>`;
+  }
+
+  const favoriteCards=cards.filter(c=>favorites.includes(c.id));
+  const favBox=document.getElementById('miRinconFavorites');
+  favBox.innerHTML=favoriteCards.length?favoriteCards.map(cardHTML).join(''):'<div class="empty">Todavía no tienes pausas favoritas. Cuando guardes alguna, aparecerá aquí.</div>';
+
+  const reflections=[];
+  for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
+    if(!key||!key.endsWith('_reflection')) continue;
+    const text=localStorage.getItem(key);
+    if(!text||!text.trim()) continue;
+    const pauseId=key.replace(/_reflection$/,'');
+    const pause=cards.find(c=>c.id===pauseId);
+    reflections.push({title:pause?pause.title:pauseId,text});
+  }
+  const refBox=document.getElementById('miRinconReflections');
+  refBox.innerHTML=reflections.length?reflections.map(r=>`<div class="mini-card"><strong>${escapeText(r.title)}</strong><div>${escapeText(r.text).replace(/\n/g,'<br>')}</div></div>`).join(''):'<div class="empty">Aún no guardas reflexiones. Al cerrar una pausa, las palabras que escribas se verán aquí.</div>';
+}
 function renderFavoriteList(){
   const list=cards.filter(c=>favorites.includes(c.id));
   document.getElementById('favoriteList').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty">Todavía no has guardado pausas favoritas.</div>';
