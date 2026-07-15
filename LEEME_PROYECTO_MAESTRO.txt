@@ -1,18 +1,24 @@
-ESPACIO DE PAUSAS · PROYECTO MAESTRO 1.0
+ESPACIO DE PAUSAS · BETA 1 INTEGRAL
 
-Este archivo será la única base de desarrollo a partir de ahora.
+CONSERVA:
+- Las 20 pausas de Casa.
+- Las 20 pausas de Oficina.
+- Contenido complementario, reflexión y cierre.
 
-CAMBIOS VISIBLES
-- Etiqueta fija “Proyecto Maestro · 1.0”.
-- Ajustes para que la presentación sea consistente en computadora y celular.
-- Botón “Buscar actualización”.
-- Corrección de almacenamiento temporal para mostrar despliegues nuevos.
+MEJORAS:
+- Nueva identidad visual integral.
+- Favoritas guardadas en el celular.
+- Última pausa.
+- Filtros por intención.
+- Sugerencia de siguiente pausa.
+- Enlaces directos preparados: ?pause=CASA-01 o ?pause=OFI-14
+- Preparación básica como Web App instalable y uso sin conexión de la estructura.
 
-CÓMO PUBLICAR
-1. Abre el MISMO Worker en Cloudflare.
-2. Nuevo despliegue / Upload assets.
+ACTUALIZAR EN CLOUDFLARE:
+1. Entra al MISMO proyecto.
+2. Selecciona Create deployment / Upload assets.
 3. Sube este ZIP.
-4. Comprueba que en computadora y celular aparezca la etiqueta:
-   Proyecto Maestro · 1.0
+4. Conserva el mismo dominio.
 
-Si ambos muestran esa etiqueta, ya están usando exactamente la misma versión.
+IMPORTANTE:
+Esta versión usa el mismo cards.json de la V4; no elimina ninguna pausa.

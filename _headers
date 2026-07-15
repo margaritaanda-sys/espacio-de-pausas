@@ -1,11 +1,21 @@
-/
-  Cache-Control: no-cache, no-store, must-revalidate
-
-/index.html
-  Cache-Control: no-cache, no-store, must-revalidate
-
-/sw.js
-  Cache-Control: no-cache, no-store, must-revalidate
-
-/cards.json
-  Cache-Control: no-cache
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#65745f">
+<title>Espacio de Pausas</title>
+<style>
+:root{--ink:#314034;--sage:#6f7f69;--dark:#4e5e4c;--ivory:#fbf8f2;--line:#e4ded3}
+*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--ink);font-family:Arial,sans-serif}
+.hero{min-height:100vh;padding:28px;display:flex;align-items:flex-end;color:white;background:
+radial-gradient(circle at 84% 18%,rgba(255,255,255,.2) 0 7%,transparent 8%),
+linear-gradient(145deg,#aab69f,#6f7f69 60%,#4e5e4c)}
+.wrap{width:100%;max-width:900px;margin:auto}.brand{letter-spacing:.16em;font-size:.74rem;font-weight:800}
+h1{font:500 clamp(3.4rem,11vw,6rem)/.94 Georgia,serif;margin:.28em 0}
+p{font-size:1.15rem;line-height:1.55;max-width:600px}.btn{display:inline-block;background:white;color:var(--dark);padding:16px 24px;border-radius:999px;text-decoration:none;font-weight:800;margin-top:18px}
+</style></head>
+<body><div class="hero"><div class="wrap">
+<div class="brand">PAUSAS PARA VOLVER A TI®</div>
+<h1>Qué gusto que estés aquí.</h1>
+<p>A veces no necesitas cambiar toda tu vida. Solo regalarte unos minutos para detenerte, respirar y volver a ti.</p>
+<a class="btn" href="../">Entrar a Espacio de Pausas</a>
+</div></div></body></html>
