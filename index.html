@@ -58,6 +58,29 @@ h2{font-size:2.05rem;line-height:1.1;margin:.38em 0}
 h3{font-size:1.32rem;line-height:1.2;margin:.3em 0}
 p{line-height:1.62}
 .hero-copy{max-width:340px;font-size:1rem}
+.hero-btn{
+  margin-top:24px;
+  border:0;
+  border-radius:999px;
+  padding:14px 24px;
+  background:rgba(255,255,255,.94);
+  color:var(--sage-dark);
+  font-weight:800;
+  font-size:.95rem;
+  box-shadow:0 10px 24px rgba(35,48,39,.18);
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.hero-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(35,48,39,.24);
+  background:#fff;
+}
+
+.hero-btn:active{
+  transform:translateY(0);
+}
 .section-title{margin:30px 3px 13px}
 .collection-grid{display:grid;gap:17px;margin-top:20px}
 .collection-card{
@@ -193,7 +216,14 @@ p{line-height:1.62}
 
 
     <h1>Vuelve a ti.</h1>
-    <p class="hero-copy">Respira. Haz una pausa consciente y elige el espacio que necesitas hoy.</p>
+
+<p class="hero-copy">
+  Respira. Haz una pausa consciente y elige el espacio que necesitas hoy.
+</p>
+
+<button class="hero-btn" onclick="document.querySelector('.section-title').scrollIntoView({ behavior: 'smooth' })">
+  Comenzar mi pausa
+</button>
   </div>
 
   <div id="lastPause" class="quick-card"></div>
