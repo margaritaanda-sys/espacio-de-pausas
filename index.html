@@ -39,47 +39,122 @@ main{padding:18px 18px 100px}
 .view{display:none;animation:enter .32s ease}
 .view.active{display:block}
 @keyframes enter{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
-.hero{
-  min-height:360px;border-radius:34px;padding:30px;display:flex;flex-direction:column;justify-content:flex-end;
-  color:white;box-shadow:var(--shadow);position:relative;overflow:hidden;
+.premium-hero{
+  min-height:500px;
+  padding:54px 30px 48px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
   background:
-   radial-gradient(circle at 85% 18%,rgba(255,255,255,.28) 0 7%,transparent 8%),
-   radial-gradient(circle at 12% 84%,rgba(255,255,255,.15) 0 12%,transparent 13%),
-   linear-gradient(145deg,#a9b39d 0%,#71806c 55%,#4d5d4b 100%);
+    radial-gradient(circle at 90% 12%, rgba(184,199,177,.48), transparent 28%),
+    radial-gradient(circle at 15% 85%, rgba(221,205,177,.36), transparent 32%),
+    linear-gradient(145deg, #f8f4eb 0%, #eef0e7 48%, #e4e9df 100%);
+  border-radius:0 0 42px 42px;
+  box-shadow:0 24px 60px rgba(38,52,42,.12);
 }
-.hero:before{
-  content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(30,43,34,.34))
+.premium-hero::before{
+  content:"";
+  position:absolute;
+  top:70px;
+  left:18px;
+  width:min(66vw,360px);
+  height:min(36vw,240px);
+  border-radius:44% 56% 46% 54% / 44% 50% 50% 56%;
+  background:rgba(122,149,119,.24);
+  filter:blur(70px);
+  opacity:.56;
+  pointer-events:none;
+  z-index:0;
 }
-.hero>*{position:relative}
-.eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800}
-h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}
-h1{font-size:clamp(2.65rem,11vw,3.55rem);line-height:.98;margin:.28em 0}
-h2{font-size:2.05rem;line-height:1.1;margin:.38em 0}
-h3{font-size:1.32rem;line-height:1.2;margin:.3em 0}
-p{line-height:1.62}
-.hero-copy{max-width:340px;font-size:1rem}
-.hero-btn{
-  margin-top:24px;
+.premium-hero > *{position:relative;z-index:1}
+.premium-hero__eyebrow{
+  font-size:11px;
+  letter-spacing:.22em;
+  font-weight:800;
+  color:#4d654f;
+  text-transform:uppercase;
+  animation:riseIn .48s ease both;
+  animation-delay:.05s;
+}
+.premium-hero__title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(64px, 13vw, 86px);
+  line-height:.88;
+  letter-spacing:-.04em;
+  color:#26382d;
+  margin:24px 0 28px;
+  font-weight:500;
+  animation:riseIn .48s ease both;
+  animation-delay:.16s;
+}
+.premium-hero__copy{
+  max-width:390px;
+  font-size:18px;
+  line-height:1.6;
+  color:#526057;
+  margin:0;
+  animation:riseIn .48s ease both;
+  animation-delay:.27s;
+}
+.premium-hero__button{
+  width:auto;
+  min-width:220px;
+  height:58px;
+  padding:0 24px;
   border:0;
   border-radius:999px;
-  padding:14px 24px;
-  background:rgba(255,255,255,.94);
-  color:var(--sage-dark);
+  background:#26382d;
+  color:#f8f4eb;
+  display:inline-flex;
+  gap:18px;
+  align-items:center;
+  justify-content:center;
   font-weight:800;
-  font-size:.95rem;
-  box-shadow:0 10px 24px rgba(35,48,39,.18);
+  box-shadow:0 16px 30px rgba(38,56,45,.24);
+  margin-top:30px;
   cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  transition:transform .2s ease, box-shadow .2s ease;
+  animation:riseIn .48s ease both;
+  animation-delay:.38s;
 }
-
-.hero-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(35,48,39,.24);
-  background:#fff;
+.premium-hero__button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 22px 36px rgba(38,56,45,.3);
 }
-
-.hero-btn:active{
-  transform:translateY(0);
+.premium-hero__button:hover span:last-child{transform:translateX(4px)}
+.premium-hero__button:active{transform:scale(.98)}
+.premium-hero__button span:last-child{
+  display:inline-block;
+  transition:transform .2s ease;
+}
+.premium-hero__note{
+  margin:22px 0 0;
+  font-size:13px;
+  color:#738078;
+  font-style:italic;
+  animation:riseIn .48s ease both;
+  animation-delay:.49s;
+}
+@keyframes riseIn{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .premium-hero__eyebrow,
+  .premium-hero__title,
+  .premium-hero__copy,
+  .premium-hero__button,
+  .premium-hero__note{
+    animation:none;
+  }
+}
+@media (max-width:560px){
+  .premium-hero{min-height:450px;padding:44px 24px 40px;border-radius:0 0 32px 32px}
+  .premium-hero__title{font-size:clamp(48px, 13vw, 60px);margin:20px 0 24px}
+  .premium-hero__copy{font-size:16px;max-width:320px}
+  .premium-hero__button{min-width:0;width:auto;padding:0 22px;height:56px}
+  .premium-hero__note{margin-top:18px}
 }
 .section-title{margin:30px 3px 13px}
 .collection-grid{display:grid;gap:17px;margin-top:20px}
@@ -193,8 +268,6 @@ p{line-height:1.62}
 @media (max-width:560px){
   .app{width:100%;box-shadow:none}
   main{padding-left:16px;padding-right:16px}
-  .hero{min-height:335px;padding:26px}
-  .hero h1{font-size:2.75rem}
   .collection-grid{gap:14px}
   .collection-card{min-height:205px}
   .topbar{padding-left:16px;padding-right:16px}
@@ -211,20 +284,27 @@ p{line-height:1.62}
 
 <main>
 <section id="home" class="view active">
-  <div class="hero">
-    <div class="eyebrow">Espacio de Pausas</div>
+  <section class="premium-hero">
+    <div class="premium-hero__eyebrow">ESPACIO DE PAUSAS</div>
 
+    <h1 class="premium-hero__title">
+      Vuelve<br>
+      a ti.
+    </h1>
 
-    <h1>Vuelve a ti.</h1>
+    <p class="premium-hero__copy">
+      Respira. Haz una pausa consciente y elige el espacio que necesitas hoy.
+    </p>
 
-<p class="hero-copy">
-  Respira. Haz una pausa consciente y elige el espacio que necesitas hoy.
-</p>
+    <button class="premium-hero__button" onclick="document.querySelector('.section-title').scrollIntoView({ behavior: 'smooth' })">
+      <span>Comenzar mi pausa</span>
+      <span aria-hidden="true">→</span>
+    </button>
 
-<button class="hero-btn" onclick="document.querySelector('.section-title').scrollIntoView({ behavior: 'smooth' })">
-  Comenzar mi pausa
-</button>
-  </div>
+    <p class="premium-hero__note">
+      Unos minutos también pueden cambiar tu día.
+    </p>
+  </section>
 
   <div id="lastPause" class="quick-card"></div>
 
