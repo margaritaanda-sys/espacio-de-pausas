@@ -49,7 +49,7 @@
   </div>
 
   <div class="collection-grid">
-    <button class="collection-card casa" onclick="openCollection('Casa')">
+    <button class="collection-card casa" onclick="openCasaView()">
       <div class="collection-icon">🏡</div>
       <div class="count">20 pausas</div>
       <h2>Casa</h2>
@@ -61,6 +61,113 @@
       <h2>Oficina</h2>
       <p class="collection-tagline">Pausas breves para cuidarte mientras atraviesas tu jornada.</p>
     </button>
+  </div>
+</section>
+
+<section id="casaCollection" class="view house-collection-view">
+  <div class="house-collection">
+    <div class="house-collection__top">
+      <button class="back house-collection__back" onclick="showView('home')">← Volver</button>
+      <div class="house-collection__eyebrow">COLECCIÓN CASA</div>
+      <h1 class="house-collection__title">Pausas para volver a ti</h1>
+      <p class="house-collection__lead">Rituales breves para descansar, soltar el día y sentirte nuevamente en casa contigo.</p>
+      <p class="house-collection__inspirational">La calma no siempre llega sola.<br>A veces comienza con una pausa.</p>
+      <div class="house-collection__ornament" aria-hidden="true"></div>
+    </div>
+
+    <div class="house-featured" onclick="openCasaFeaturedPause()">
+      <div class="house-featured__art" aria-hidden="true">
+        <span class="house-featured__art-sun"></span>
+        <span class="house-featured__art-wave"></span>
+        <span class="house-featured__art-leaf"></span>
+      </div>
+      <div class="house-featured__badge">Recomendada</div>
+      <div class="house-featured__content">
+        <div class="house-featured__label">Pausa recomendada</div>
+        <h2>Llegué a casa</h2>
+        <div class="house-featured__meta">5 minutos</div>
+        <p>Una pausa para cerrar el día, respirar y cambiar el ritmo.</p>
+      </div>
+      <button class="house-featured__button" onclick="event.stopPropagation(); openCasaFeaturedPause()">Comenzar</button>
+    </div>
+
+    <div class="house-list">
+      <div class="house-list__title">¿Qué necesitas hoy?</div>
+      <div class="house-list__grid">
+        <article class="house-item" onclick="openHousePause('Soltar el día')">
+          <div class="house-item__icon" aria-hidden="true">☁️</div>
+          <div class="house-item__body">
+            <div class="house-item__head">
+              <h3>Soltar el día</h3>
+              <span>4 min</span>
+            </div>
+            <p>Deja afuera las preocupaciones que ya no necesitas cargar.</p>
+          </div>
+          <div class="house-item__arrow" aria-hidden="true">↗</div>
+        </article>
+        <article class="house-item" onclick="openHousePause('Volver al cuerpo')">
+          <div class="house-item__icon" aria-hidden="true">🌿</div>
+          <div class="house-item__body">
+            <div class="house-item__head">
+              <h3>Volver al cuerpo</h3>
+              <span>3 min</span>
+            </div>
+            <p>Respira, estírate y recupera presencia.</p>
+          </div>
+          <div class="house-item__arrow" aria-hidden="true">↗</div>
+        </article>
+        <article class="house-item" onclick="openHousePause('Un momento para mí')">
+          <div class="house-item__icon" aria-hidden="true">🕯️</div>
+          <div class="house-item__body">
+            <div class="house-item__head">
+              <h3>Un momento para mí</h3>
+              <span>5 min</span>
+            </div>
+            <p>Haz espacio para descansar sin sentir culpa.</p>
+          </div>
+          <div class="house-item__arrow" aria-hidden="true">↗</div>
+        </article>
+        <article class="house-item" onclick="openHousePause('Calma en casa')">
+          <div class="house-item__icon" aria-hidden="true">🫖</div>
+          <div class="house-item__body">
+            <div class="house-item__head">
+              <h3>Calma en casa</h3>
+              <span>6 min</span>
+            </div>
+            <p>Baja el ritmo y crea una sensación de refugio.</p>
+          </div>
+          <div class="house-item__arrow" aria-hidden="true">↗</div>
+        </article>
+        <article class="house-item" onclick="openHousePause('Cerrar pendientes')">
+          <div class="house-item__icon" aria-hidden="true">📝</div>
+          <div class="house-item__body">
+            <div class="house-item__head">
+              <h3>Cerrar pendientes</h3>
+              <span>4 min</span>
+            </div>
+            <p>Organiza mentalmente lo que puede esperar hasta mañana.</p>
+          </div>
+          <div class="house-item__arrow" aria-hidden="true">↗</div>
+        </article>
+        <article class="house-item" onclick="openHousePause('Disfrutar mi espacio')">
+          <div class="house-item__icon" aria-hidden="true">🪴</div>
+          <div class="house-item__body">
+            <div class="house-item__head">
+              <h3>Disfrutar mi espacio</h3>
+              <span>5 min</span>
+            </div>
+            <p>Reconecta con aquello que hace de tu casa un lugar propio.</p>
+          </div>
+          <div class="house-item__arrow" aria-hidden="true">↗</div>
+        </article>
+      </div>
+    </div>
+
+    <div class="house-footer">
+      <div class="house-footer__title">Tu casa también puede cuidarte</div>
+      <p>Una pausa no necesita ser perfecta. Solo necesita darte unos minutos para volver a ti.</p>
+      <button class="btn secondary house-footer__button" onclick="openMyCorner()">Guardar en Mi Rincón</button>
+    </div>
   </div>
 </section>
 
@@ -178,6 +285,15 @@ function showView(id){
   window.scrollTo({top:0,behavior:'smooth'});
   if(id==='home') renderLastPause();
   if(id==='miRincon') renderMyCorner();
+}
+function openCasaView(){showView('casaCollection')}
+function openCasaFeaturedPause(){
+  const featured=cards.find(c=>c.collection==='Casa' && c.title && c.title.toLowerCase().includes('casa')) || cards.find(c=>c.collection==='Casa');
+  if(featured) openCard(featured.id); else showView('home');
+}
+function openHousePause(title){
+  const match=cards.find(c=>c.collection==='Casa' && c.title && c.title.toLowerCase().includes(title.toLowerCase()));
+  if(match) openCard(match.id); else showView('home');
 }
 function openCollection(name){
   currentCollection=name;currentFilter='Todas';
